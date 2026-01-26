@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import OrderScreen from './src/screen/OrderScreen';
+import CheckScreen from './src/screen/CheckScreen';
+import HomeScreen from './src/screen/HomeScreen';
+import { PhoneValue } from './src/context/PhoneContext';
+import SuccessScreen from './src/screen/SuccessScreen';
+import ContactScreen from './src/screen/ContactScreen';
+import InsertOrderScreen from './src/screen/InsertOrderScreen';
+import HelpScreen from './src/screen/HelpScreen';
+import TodayScreen from './src/screen/TodayScreen';
+import ZasalScreen from './src/screen/ZasalScreen';
+import ZasalinfoScreen from './src/screen/ZasalinfoScreen';
+import EbarimtShowScreen from './src/screen/EbarimtShowScreen';
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <PhoneValue>
+        <Stack.Navigator initialRouteName="HomeScreen"
+          screenOptions={{
+            headerStyle: { backgroundColor: "#ffb300", borderWidth: 0, elevation: 0, shadowColor: 'transparent', shadowOpacity: 0 },
+            headerTintColor: "white",
+            headerBackTitle: "Буцах",
+            headerTitleStyle: { fontSize: 18 }
+          }}>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="OrderScreen" component={OrderScreen} options={{ title: "Ном айлдуулах" }} />
+          <Stack.Screen name="CheckScreen" component={CheckScreen} options={{ title: "Захиалга шалгах" }} />
+          <Stack.Screen name="SuccessScreen" component={SuccessScreen} options={{ title: "Захиалга амжилттай" }} />
+          <Stack.Screen name="InsertOrderScreen" component={InsertOrderScreen} options={{ title: "Айлтгалыг бүртгэж байна" }} />
+          <Stack.Screen name="ContactScreen" component={ContactScreen} options={{ title: "Холбоо барих" }} />
+          <Stack.Screen name="HelpScreen" component={HelpScreen} options={{ title: "Заавар" }} />
+          <Stack.Screen name="TodayScreen" component={TodayScreen} options={{ title: "Өнөөдөр" }} />
+          <Stack.Screen name="ZasalScreen" component={ZasalScreen} options={{ title: "Суудлын засал" }} />
+          <Stack.Screen name="ZasalinfoScreen" component={ZasalinfoScreen} options={{ title: "Суудлын засал" }} />
+          <Stack.Screen name="EbarimtShowScreen" component={EbarimtShowScreen} options={{ title: "Ebarimt" }} />
+        </Stack.Navigator>
+      </PhoneValue>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
