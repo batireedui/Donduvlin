@@ -213,7 +213,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.cont}>
           <View>
             <Text style={styles.title}>
-              Өвөрхангай аймгийн Ганданпунцоглин хийд
+              Дондүвлин хийд
             </Text>
           </View>
           {day === null ? null : (

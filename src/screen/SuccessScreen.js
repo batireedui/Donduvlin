@@ -24,9 +24,9 @@ const SuccessScreen = (props) => {
   const [loading, setloading] = useState(false);
 
   const [mybank, setMybank] = useState("Хаан банк");
-  const [dans, setDans] = useState("5540020694");
-  const [dans_ner, setDans_ner] = useState("Ганданпугцоглин хийд /хандив/");
-  const [iban, setIban] = useState("MN 79000500");
+  const [dans, setDans] = useState("5084483969");
+  const [dans_ner, setDans_ner] = useState("НЯМА БУМ ДАР ДОНДҮВ ЧОЙНХОРЛИН ХИЙД");
+  const [iban, setIban] = useState("MN03000500");
   const [info, setInfo] = useState("");
   
   const copyToClipboard = async (val) => {
