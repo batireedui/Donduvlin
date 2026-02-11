@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import Feather from '@expo/vector-icons/Feather';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useFonts, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
@@ -90,13 +91,13 @@ const HomeScreen = ({ navigation }) => {
         console.log(err);
       });
 
-    return () => {};
+    return () => { };
   }, [expoPushToken]);
 
   /*notifaction*/
   useEffect(() => {
     getData();
-    return () => {};
+    return () => { };
   }, [phonevalue]);
 
   useEffect(() => {
@@ -107,15 +108,15 @@ const HomeScreen = ({ navigation }) => {
           expotoken: expoPushToken,
           phone: sphone,
         })
-        .then((data) => {})
+        .then((data) => { })
         .catch((err) => {
           console.log(err);
         });
     }
-    return () => {};
+    return () => { };
   }, [phonevalue, expoPushToken]);
 
-  const version = "1.8.1";
+  const version = "1.0.0";
   function checkNumber(chn) {
     let chv = true;
     if (chn === null) {
@@ -165,7 +166,7 @@ const HomeScreen = ({ navigation }) => {
       await AsyncStorage.removeItem("@phoneVal");
       setphonevalue(false);
       setsignOutClick(!signOutClick);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const signOutDrop = () => {
@@ -202,8 +203,9 @@ const HomeScreen = ({ navigation }) => {
       >
         <Pressable style={styles.myNumber} onPress={signOutDrop}>
           <Text style={styles.titleP}>
-            {sphone} <AntDesign name="downcircleo" size={14} color="#fff" />
+            {sphone}
           </Text>
+          <Feather name="arrow-down-circle" size={20} color="white" />
         </Pressable>
         {signOutClick ? (
           <Pressable style={styles.myNumberD} onPress={removePhone}>
@@ -213,7 +215,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.cont}>
           <View>
             <Text style={styles.title}>
-              Дондүвлин хийд
+              ДОНДҮВЛИН ХИЙД
             </Text>
           </View>
           {day === null ? null : (
@@ -227,27 +229,10 @@ const HomeScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("OrderScreen")}
             >
               <View style={styles.circle}>
-                <AntDesign name="form" size={24} color="#F9AA3A" />
+                <AntDesign name="read" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Ном айлдуулах</Text>
-              <View
-                style={{ backgroundColor: "#F9AA3A", ...styles.line }}
-              ></View>
             </Pressable>
-            <Pressable
-              style={styles.mainBtn}
-              onPress={() => navigation.navigate("CheckScreen")}
-            >
-              <View style={styles.circle}>
-                <AntDesign name="contacts" size={24} color="#5491D8" />
-              </View>
-              <Text style={styles.textStyle}>Миний айлтгалууд</Text>
-              <View
-                style={{ backgroundColor: "#5491D8", ...styles.line }}
-              ></View>
-            </Pressable>
-          </View>
-          <View style={styles.contD}>
             <Pressable
               style={styles.mainBtn}
               onPress={() => {
@@ -255,50 +240,49 @@ const HomeScreen = ({ navigation }) => {
               }}
             >
               <View style={styles.circle}>
-                <AntDesign name="user" size={24} color="#EF3D55" />
+                <Feather name="user" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Засал</Text>
-              <View
-                style={{ backgroundColor: "#EF3D55", ...styles.line }}
-              ></View>
-            </Pressable>
-            <Pressable
-              style={styles.mainBtn}
-              onPress={() => navigation.navigate("HelpScreen")}
-            >
-              <View style={styles.circle}>
-                <AntDesign name="questioncircleo" size={24} color="#7e04db" />
-              </View>
-              <Text style={styles.textStyle}>Заавар</Text>
-              <View
-                style={{ backgroundColor: "#7e04db", ...styles.line }}
-              ></View>
             </Pressable>
           </View>
           <View style={styles.contD}>
             <Pressable
               style={styles.mainBtn}
+              onPress={() => navigation.navigate("CheckScreen")}
+            >
+              <View style={styles.circle}>
+                <AntDesign name="contacts" size={24} color="#fff" />
+              </View>
+              <Text style={styles.textStyle}>Миний айлтгалууд</Text>
+            </Pressable>
+            <Pressable
+              style={styles.mainBtn}
               onPress={() => navigation.navigate("TodayScreen")}
             >
               <View style={styles.circle}>
-                <AntDesign name="calendar" size={24} color="#014194" />
+                <AntDesign name="calendar" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Өнөөдөр</Text>
-              <View
-                style={{ backgroundColor: "#014194", ...styles.line }}
-              ></View>
+            </Pressable>
+          </View>
+          <View style={styles.contD}>
+            <Pressable
+              style={styles.mainBtn}
+              onPress={() => navigation.navigate("HelpScreen")}
+            >
+              <View style={styles.circle}>
+                <Feather name="help-circle" size={24} color="#fff" />
+              </View>
+              <Text style={styles.textStyle}>Заавар</Text>
             </Pressable>
             <Pressable
               style={styles.mainBtn}
               onPress={() => navigation.navigate("ContactScreen")}
             >
               <View style={styles.circle}>
-                <AntDesign name="phone" size={24} color="#0804db" />
+                <AntDesign name="phone" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Холбоо барих</Text>
-              <View
-                style={{ backgroundColor: "#0804db", ...styles.line }}
-              ></View>
             </Pressable>
           </View>
           <Text style={{ fontSize: 10, color: "#5A5A5A" }}>
@@ -403,6 +387,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   titleP: {
+    display: "flex",
+    fontFamily: "Nunito_800ExtraBold",
+    justifyContent: "center",
+    alignItems: "center",
     color: "#ffffff",
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -415,7 +403,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 50,
     flexDirection: "row",
-    width: 130,
+    width: 150,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   myNumberD: {
     alignSelf: "flex-end",
@@ -425,7 +416,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     textAlign: "center",
     flexDirection: "row",
-    width: 130,
+    width: 150,
   },
   buttonS: {
     borderRadius: 20,
@@ -465,7 +456,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: "Nunito_800ExtraBold",
-    color: "#525252",
+    color: "#321111",
   },
   circle: {
     marginTop: 10,
@@ -474,17 +465,8 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 55,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 15.0,
-
-    elevation: 3,
+    borderRadius: 10,
+    backgroundColor: "#f6b74b",
   },
   cont: {
     flex: 2,
@@ -496,8 +478,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   mainBtn: {
-    borderWidth: 1,
-    borderColor: "#ebebeb",
+    borderWidth: 2,
+    borderColor: "#e59797",
     marginHorizontal: 15,
     marginVertical: 10,
     alignItems: "center",
@@ -505,15 +487,6 @@ const styles = StyleSheet.create({
     height: 105,
     borderRadius: 10,
     backgroundColor: "#f7f7f7",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 5.0,
-
-    elevation: 3,
   },
   ognoo: {
     fontFamily: "Nunito_800ExtraBold",

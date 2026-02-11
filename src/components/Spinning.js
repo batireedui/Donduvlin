@@ -4,8 +4,8 @@ import { StyleSheet, View, ActivityIndicator,Text } from 'react-native'
 const Spinning = () => {
     return (
         <View style={{ alignItems: "center", marginTop: 30 }}>
-            <ActivityIndicator size="large" color="#ffb300" />
-            <Text style={{color: "#ff7700" }}>Түр хүлээнэ үү ...</Text>
+            <ActivityIndicator size="large" color="#ca4e18" />
+            <Text style={{color: "#ca4e18" }}>Түр хүлээнэ үү ...</Text>
         </View>
     )
 }

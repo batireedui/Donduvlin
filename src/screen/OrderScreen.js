@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { serverUrl } from '../Consts'
 import Spinning from '../components/Spinning'
-import { AntDesign } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MyInput from '../components/MyInput';
 import { token } from '../Consts';
 const OrderScreen = ({ navigation }) => {
@@ -79,7 +79,7 @@ const OrderScreen = ({ navigation }) => {
         setFirstbooks(false);
         let mount = true;
         setloading(true);
-        axios.post(serverUrl + 'book.php')
+        axios.post(serverUrl + 'book_app.php')
             .then(data => {
                 if (mount) {
                     setBooks(data.data);
@@ -238,7 +238,7 @@ const OrderScreen = ({ navigation }) => {
                     </View> : null
                 }
                 <View style={styles.Inputv}>
-                    <AntDesign name="search1" size={24} color="black" style={{ marginHorizontal: 5 }} />
+                    <FontAwesome name="search" size={24} color="#727272"  style={{ marginHorizontal: 5 }}/>
                     <TextInput
                         placeholder="Хайх номын нэр"
                         style={styles.Input}
@@ -260,7 +260,7 @@ const OrderScreen = ({ navigation }) => {
                         onPress={() => {
                             setModalVisible(true);
                         }}
-                        style={styles.ailduulah}>{selectbook > 0 ? <Text>АЙЛДУУЛАХ</Text> : <Text style={{ fontSize: 12 }}>Номоо сонгоно уу</Text>}</TouchableOpacity>
+                        style={styles.ailduulah}>{selectbook > 0 ? <Text>АЙЛДУУЛАХ</Text> : <Text style={{ fontSize: 12, color: '#ffffff' }}>Номоо сонгоно уу</Text>}</TouchableOpacity>
                 </View>
                 {loading && <Spinning />}
                 {firstbooks ? (
@@ -268,7 +268,7 @@ const OrderScreen = ({ navigation }) => {
                         {
                             filterBook.map(el => (
                                 <TouchableOpacity key={el.id} style={styles.BookStyle} onPress={() => { bookCheck(el.id) }}>
-                                    {el.checked == 'true' ? <AntDesign style={styles.checkStyle} name="checkcircle" size={24} color="#005cad" /> : null}
+                                    {el.checked == 'true' ? <FontAwesome style={styles.checkStyle} name="check-circle" size={24} color="#005cad" /> : null}
                                     <View style={{ flexDirection: 'column', flex: 1 }}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <Text style={styles.Bookname} >{el.name}</Text>
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     ailduulah: {
-        backgroundColor: '#ffb300',
+        backgroundColor: '#ca4e18',
         paddingHorizontal: 5,
         alignItems: 'center',
         justifyContent: 'center',

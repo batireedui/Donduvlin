@@ -82,7 +82,7 @@ const CheckScreen = ({ navigation }) => {
   };
 
   return connectStatus ? (
-    <View>
+    <View style={{flex:1}}>
       <View style={styles.head}>
         <TextInput
           placeholder="Утасны дугаараа оруулна уу"
@@ -116,18 +116,9 @@ const CheckScreen = ({ navigation }) => {
                 Огноо: <Text style={{ fontWeight: "bold" }}>{el[0].hezee}</Text>
               </Text>
               <Text>
-                Нийт дүн:{" "}
+                Сүсэглэсэн дүн:{" "}
                 <Text style={{ fontWeight: "bold" }}>{el[0].niitdun}₮</Text>
               </Text>
-              <Text>Төлбөр төлсөн:</Text>
-              <View style={{ marginLeft: 10 }}>
-                {el[2].map((ii, ele) => (
-                  <View key={`${ele}-${Math.floor(Math.random() * 100)}`}>
-                    <Text style={{ fontWeight: "bold" }}> - {ii.ndun}₮</Text>
-                    <Text>({ii.ognoo})</Text>
-                  </View>
-                ))}
-              </View>
               <Text style={{ fontWeight: "bold" }}>Бичүүлсэн ном, айлтгал</Text>
               <View style={{ marginLeft: 10 }}>
                 {el[1].map((e) => (
@@ -175,7 +166,7 @@ const CheckScreen = ({ navigation }) => {
 export default CheckScreen;
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#ffb300",
+    backgroundColor: "#ca4e18",
   },
   htext: {
     textAlign: "center",

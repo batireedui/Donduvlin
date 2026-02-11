@@ -21,7 +21,7 @@ export default function App() {
       <PhoneValue>
         <Stack.Navigator initialRouteName="HomeScreen"
           screenOptions={{
-            headerStyle: { backgroundColor: "#ffb300", borderWidth: 0, elevation: 0, shadowColor: 'transparent', shadowOpacity: 0 },
+            headerStyle: { backgroundColor: "#ca4e18", borderWidth: 0, elevation: 0, shadowColor: 'transparent', shadowOpacity: 0 },
             headerTintColor: "white",
             headerBackTitle: "Буцах",
             headerTitleStyle: { fontSize: 18 }
