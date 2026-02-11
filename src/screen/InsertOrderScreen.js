@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, BackHandler, Alert } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios'
 import { checkConnected } from '../function';
 import NoConnectionScreen from "./NoConnectionScreen";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { serverUrl } from '../Consts'
 import Spinning from '../components/Spinning'

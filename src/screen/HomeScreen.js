@@ -251,7 +251,7 @@ const HomeScreen = ({ navigation }) => {
             <Pressable
               style={styles.mainBtn}
               onPress={() => {
-                navigation.navigate("ZasalScreen");
+                navigation.navigate("ZasalwebScreen");
               }}
             >
               <View style={styles.circle}>

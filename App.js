@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OrderScreen from './src/screen/OrderScreen';
 import CheckScreen from './src/screen/CheckScreen';
 import HomeScreen from './src/screen/HomeScreen';
@@ -12,7 +12,8 @@ import TodayScreen from './src/screen/TodayScreen';
 import ZasalScreen from './src/screen/ZasalScreen';
 import ZasalinfoScreen from './src/screen/ZasalinfoScreen';
 import EbarimtShowScreen from './src/screen/EbarimtShowScreen';
-const Stack = createStackNavigator();
+import ZasalwebScreen from './src/screen/ZasalwebScreen';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="ZasalScreen" component={ZasalScreen} options={{ title: "Суудлын засал" }} />
           <Stack.Screen name="ZasalinfoScreen" component={ZasalinfoScreen} options={{ title: "Суудлын засал" }} />
           <Stack.Screen name="EbarimtShowScreen" component={EbarimtShowScreen} options={{ title: "Ebarimt" }} />
+          <Stack.Screen name="ZasalwebScreen" component={ZasalwebScreen} options={{ title: "Суудлын засал" }} />
         </Stack.Navigator>
       </PhoneValue>
     </NavigationContainer>
