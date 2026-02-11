@@ -61,7 +61,11 @@ const ZasalScreen = ({ navigation }) => {
 
   let temp = [];
   function renderOn() {
-    let starton = parseInt(on) + ((jil - (parseInt(on) - 1923)) % mod);
+    /*for (let i = parseInt(on) + jil; i <= parseInt(thison); i = i + 12) {
+      temp.push(i);
+    }*/
+    let starton = parseInt(on) + ((jil - (parseInt(on) - 1923)) % 12);
+    if (starton < 0) starton += 12;
     for (let i = starton + jil; i <= parseInt(thison); i = i + 12) {
       temp.push(i);
     }
