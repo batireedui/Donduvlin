@@ -33,7 +33,7 @@ const TodayScreen = () => {
         connectStatus ? (
         <View style={styles.main}>
             <ScrollView style={{margin: 15}}>
-                <Text style={styles.txt}>Өнөөдрийн зурхай</Text>
+                <Text style={styles.txt}>Өнөөдөр</Text>
                 {loading && <Spinning/>}
                 {
                     data !== null ?
@@ -53,22 +53,27 @@ export default TodayScreen
 
 const styles = StyleSheet.create({
     txt: {
-        color: '#00224f',
+        color: '#ca4e18',
         fontFamily: 'Nunito_800ExtraBold',
         fontSize: 20,
         textAlign: 'center'
     },
     txtBody: {
-        color: '#00224f',
+        color: '#252525',
         lineHeight: 20,
     },
     txtTitle: {
-        color: '#00224f',
+        color: '#292929',
         fontWeight: 'bold',
         marginVertical: 15
     },
     main: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#eeeeee',
+        margin: 10,
+        borderRadius: 15,
+        borderColor: "#c7c7c7",
+        borderWidth: 2,
     }
 })

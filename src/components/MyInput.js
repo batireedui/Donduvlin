@@ -2,7 +2,7 @@ import { TextInput, StyleSheet, View, Text } from 'react-native';
 
 export default function (props) {
     return (<View>
-        <Text style={{marginTop: 5, color: "#0081FF", fontSize: 11, fontWeight: 'bold'}}>{props.labelName}</Text>
+        <Text style={{marginTop: 5, color: "#ca4e18", fontSize: 14, fontFamily: "RobotoCondensed_600SemiBold"}}>{props.labelName}</Text>
         <TextInput
             autoCorrect={false}
             {...props}

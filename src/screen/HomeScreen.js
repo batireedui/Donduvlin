@@ -10,10 +10,29 @@ import {
   Alert,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import Feather from '@expo/vector-icons/Feather';
+import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { useFonts, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
+import { useFonts } from "expo-font";
+import { Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
+import { RobotoCondensed_100Thin } from "@expo-google-fonts/roboto-condensed/100Thin";
+import { RobotoCondensed_200ExtraLight } from "@expo-google-fonts/roboto-condensed/200ExtraLight";
+import { RobotoCondensed_300Light } from "@expo-google-fonts/roboto-condensed/300Light";
+import { RobotoCondensed_400Regular } from "@expo-google-fonts/roboto-condensed/400Regular";
+import { RobotoCondensed_500Medium } from "@expo-google-fonts/roboto-condensed/500Medium";
+import { RobotoCondensed_600SemiBold } from "@expo-google-fonts/roboto-condensed/600SemiBold";
+import { RobotoCondensed_700Bold } from "@expo-google-fonts/roboto-condensed/700Bold";
+import { RobotoCondensed_800ExtraBold } from "@expo-google-fonts/roboto-condensed/800ExtraBold";
+import { RobotoCondensed_900Black } from "@expo-google-fonts/roboto-condensed/900Black";
+import { RobotoCondensed_100Thin_Italic } from "@expo-google-fonts/roboto-condensed/100Thin_Italic";
+import { RobotoCondensed_200ExtraLight_Italic } from "@expo-google-fonts/roboto-condensed/200ExtraLight_Italic";
+import { RobotoCondensed_300Light_Italic } from "@expo-google-fonts/roboto-condensed/300Light_Italic";
+import { RobotoCondensed_400Regular_Italic } from "@expo-google-fonts/roboto-condensed/400Regular_Italic";
+import { RobotoCondensed_500Medium_Italic } from "@expo-google-fonts/roboto-condensed/500Medium_Italic";
+import { RobotoCondensed_600SemiBold_Italic } from "@expo-google-fonts/roboto-condensed/600SemiBold_Italic";
+import { RobotoCondensed_700Bold_Italic } from "@expo-google-fonts/roboto-condensed/700Bold_Italic";
+import { RobotoCondensed_800ExtraBold_Italic } from "@expo-google-fonts/roboto-condensed/800ExtraBold_Italic";
+import { RobotoCondensed_900Black_Italic } from "@expo-google-fonts/roboto-condensed/900Black_Italic";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
@@ -46,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
     const notificationListener = Notifications.addNotificationReceivedListener(
       (notification) => {
         setNotification(notification);
-      }
+      },
     );
 
     const responseListener =
@@ -91,13 +110,13 @@ const HomeScreen = ({ navigation }) => {
         console.log(err);
       });
 
-    return () => { };
+    return () => {};
   }, [expoPushToken]);
 
   /*notifaction*/
   useEffect(() => {
     getData();
-    return () => { };
+    return () => {};
   }, [phonevalue]);
 
   useEffect(() => {
@@ -108,12 +127,12 @@ const HomeScreen = ({ navigation }) => {
           expotoken: expoPushToken,
           phone: sphone,
         })
-        .then((data) => { })
+        .then((data) => {})
         .catch((err) => {
           console.log(err);
         });
     }
-    return () => { };
+    return () => {};
   }, [phonevalue, expoPushToken]);
 
   const version = "1.0.0";
@@ -166,7 +185,7 @@ const HomeScreen = ({ navigation }) => {
       await AsyncStorage.removeItem("@phoneVal");
       setphonevalue(false);
       setsignOutClick(!signOutClick);
-    } catch (e) { }
+    } catch (e) {}
   };
 
   const signOutDrop = () => {
@@ -188,6 +207,24 @@ const HomeScreen = ({ navigation }) => {
 
   let [fontsLoaded] = useFonts({
     Nunito_800ExtraBold,
+    RobotoCondensed_100Thin,
+    RobotoCondensed_200ExtraLight,
+    RobotoCondensed_300Light,
+    RobotoCondensed_400Regular,
+    RobotoCondensed_500Medium,
+    RobotoCondensed_600SemiBold,
+    RobotoCondensed_700Bold,
+    RobotoCondensed_800ExtraBold,
+    RobotoCondensed_900Black,
+    RobotoCondensed_100Thin_Italic,
+    RobotoCondensed_200ExtraLight_Italic,
+    RobotoCondensed_300Light_Italic,
+    RobotoCondensed_400Regular_Italic,
+    RobotoCondensed_500Medium_Italic,
+    RobotoCondensed_600SemiBold_Italic,
+    RobotoCondensed_700Bold_Italic,
+    RobotoCondensed_800ExtraBold_Italic,
+    RobotoCondensed_900Black_Italic,
   });
   if (!fontsLoaded) {
     return (
@@ -202,9 +239,7 @@ const HomeScreen = ({ navigation }) => {
         style={styles.image}
       >
         <Pressable style={styles.myNumber} onPress={signOutDrop}>
-          <Text style={styles.titleP}>
-            {sphone}
-          </Text>
+          <Text style={styles.titleP}>{sphone}</Text>
           <Feather name="arrow-down-circle" size={20} color="white" />
         </Pressable>
         {signOutClick ? (
@@ -214,9 +249,7 @@ const HomeScreen = ({ navigation }) => {
         ) : null}
         <View style={styles.cont}>
           <View>
-            <Text style={styles.title}>
-              ДОНДҮВЛИН ХИЙД
-            </Text>
+            <Text style={styles.title}>ДОНДҮВЛИН ХИЙД</Text>
           </View>
           {day === null ? null : (
             <View style={styles.ognoob}>
@@ -353,7 +386,7 @@ async function registerForPushNotificationsAsync() {
     }
     if (finalStatus !== "granted") {
       handleRegistrationError(
-        "Permission not granted to get push token for push notification!"
+        "Permission not granted to get push token for push notification!",
       );
       return;
     }
@@ -397,7 +430,7 @@ const styles = StyleSheet.create({
   },
   myNumber: {
     alignSelf: "flex-end",
-    backgroundColor: "#F42015",
+    backgroundColor: "#e05c04",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginRight: 10,
@@ -427,7 +460,7 @@ const styles = StyleSheet.create({
   },
   Inputp: {
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    paddingVertical: 10,
     borderColor: "#ff7700",
     borderWidth: 1,
     borderRadius: 20,
@@ -447,7 +480,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Nunito_800ExtraBold",
-    color: "#F42015",
+    color: "#e05c04",
     fontSize: 22,
     textAlign: "center",
     textShadowColor: "#fff",
@@ -455,7 +488,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   textStyle: {
-    fontFamily: "Nunito_800ExtraBold",
+    fontFamily: "RobotoCondensed_500Medium",
     color: "#321111",
   },
   circle: {
@@ -489,16 +522,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f7f7",
   },
   ognoo: {
-    fontFamily: "Nunito_800ExtraBold",
-    color: "#fff",
+    fontFamily: "RobotoCondensed_500Medium",
+    color: "#e05c04",
     fontSize: 12,
     textAlign: "center",
   },
   ognoob: {
-    backgroundColor: "#F42015",
+    backgroundColor: "#fde79e",
     borderRadius: 15,
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    paddingVertical: 10,
     marginVertical: 15,
   },
 });
