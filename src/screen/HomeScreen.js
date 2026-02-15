@@ -41,9 +41,10 @@ import { serverUrl } from "../Consts";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 });
 
@@ -56,6 +57,8 @@ const HomeScreen = ({ navigation }) => {
   /*notifaction*/
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
+
+  
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -102,9 +105,10 @@ const HomeScreen = ({ navigation }) => {
       .post(serverUrl + "newtoken.php", {
         token: token,
         expotoken: expoPushToken,
+        phonevalue: phonevalue,
       })
       .then((data) => {
-        //console.log(data);
+        console.log(data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -386,7 +390,7 @@ async function registerForPushNotificationsAsync() {
     }
     if (finalStatus !== "granted") {
       handleRegistrationError(
-        "Permission not granted to get push token for push notification!",
+        "Push notification зөвшөөрөл авч чадсангүй!",
       );
       return;
     }
@@ -408,7 +412,7 @@ async function registerForPushNotificationsAsync() {
       handleRegistrationError(e);
     }
   } else {
-    handleRegistrationError("Must use physical device for push notifications");
+    handleRegistrationError("Физик төхөөрөмж дээр ажиллуулах шаардлагатай!");
   }
 }
 

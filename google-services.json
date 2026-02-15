@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "292683118020",
+    "project_id": "donduvlin-55d19",
+    "storage_bucket": "donduvlin-55d19.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292683118020:android:911daaadf2f16e13c72091",
+        "android_client_info": {
+          "package_name": "mn.donduvlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAH861oMQuk6asDgglbBPHecEGb5tb5vM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
