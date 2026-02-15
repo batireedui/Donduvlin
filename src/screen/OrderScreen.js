@@ -6,6 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  KeyboardAvoidingView,
+  Platform,
   TextInput,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -35,6 +37,7 @@ const OrderScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [info, setinfo] = useState("");
   const [flash, setFlash] = useState("");
+  const [suseg, setSuseg] = useState(0);
   checkConnected().then((res) => {
     setConnectStatus(res);
   });
@@ -113,7 +116,7 @@ const OrderScreen = ({ navigation }) => {
       let mount = true;
       setloading(true);
       axios
-        .post(serverUrl + "book.php")
+        .post(serverUrl + "book_app.php")
         .then((data) => {
           if (mount) {
             setBooks(data.data);
@@ -174,22 +177,40 @@ const OrderScreen = ({ navigation }) => {
             hens: hens,
             hend: hend,
             utas: utas,
-            niitdun: parseInt(une) + parseInt(price),
+            niitdun: suseg, //parseInt(une) + parseInt(price),
             zahid: zid,
           })
           .then((data) => {
-            if (data.data.indexOf("okok") > -1) {
+            console.log(data.data);
+            const response = data.data;
+            console.log(response.zdugaar);
+            if (response.success === true) {
               okok = 0;
               setModalVisible(false);
               navigation.navigate("SuccessScreen", {
-                utga: data.data.substring(4, data.data.length),
-                une: parseInt(une) + parseInt(price),
+                utga: response.zdugaar,
+                qpay: response.qpay,
+                une: suseg, //parseInt(une) + parseInt(price),
               });
             } else {
               setinfo("Дахин оролдоно уу!");
               setInsertW(false);
               okok = 0;
             }
+            /*
+            if (data.data.indexOf("okok") > -1) {
+              okok = 0;
+              setModalVisible(false);
+              navigation.navigate("SuccessScreen", {
+                utga: data.data.substring(4, data.data.length),
+                une: suseg, //parseInt(une) + parseInt(price),
+              });
+            } else {
+              setinfo("Дахин оролдоно уу!");
+              setInsertW(false);
+              okok = 0;
+            }
+              */
           })
           .catch((err) => {
             console.log(err);
@@ -203,12 +224,16 @@ const OrderScreen = ({ navigation }) => {
 
   function checkNumber(chn) {
     let chv = true;
+    const amount = Number(suseg);
     if (hens === null) {
       chv = false;
       setinfo("Хэнээс талбарыг оруулна уу");
     } else if (hend === null) {
       chv = false;
       setinfo("Хэнд/Ам бүл талбарыг оруулна уу");
+    } else if (!suseg || !Number.isInteger(amount) || amount < 100) {
+      chv = false;
+      setinfo("Сүсэглэх дүн 100-аас дээш бүхэл тоо байх ёстой");
     } else if (chn === null) {
       chv = false;
       setinfo("Утасны дугаараа оруулна уу");
@@ -267,9 +292,9 @@ const OrderScreen = ({ navigation }) => {
             fontFamily: "RobotoCondensed_600SemiBold",
           }}
         >
-          Сонгосон ном: {selectbook}
+          Сонгосон айлтгал, ерөөл: {selectbook}
         </Text>
-
+        {/*
         <Text
           style={{
             padding: 10,
@@ -280,6 +305,7 @@ const OrderScreen = ({ navigation }) => {
         >
           Дүн: {une}
         </Text>
+        */}
         <TouchableOpacity
           disabled={selectbook > 0 ? false : true}
           onPress={() => {
@@ -349,27 +375,33 @@ const OrderScreen = ({ navigation }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TouchableOpacity
-              style={styles.buttonClose}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={{ color: "#ffffff", fontWeight: "bold", padding: 10 }}>
-                X
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity
+                style={styles.buttonClose}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text
+                  style={{ color: "#ffffff", fontWeight: "bold", padding: 10 }}
+                >
+                  X
+                </Text>
+              </TouchableOpacity>
+              <Text style={[styles.modalText, { fontWeight: "bold" }]}>
+                ТАНЫ АЙЛТГАЛУУД
               </Text>
-            </TouchableOpacity>
-            <Text style={[styles.modalText, { fontWeight: "bold" }]}>
-              ТАНЫ АЙЛТГАЛУУД
-            </Text>
-            <View style={{ maxHeight: 100 }}>
-              <ScrollView>
-                {aildNom.map((el) => (
-                  <Text key={el.name}>{el.name}</Text>
-                ))}
-              </ScrollView>
-            </View>
-            {/*
+              <View style={{ maxHeight: 100 }}>
+                <ScrollView>
+                  {aildNom.map((el) => (
+                    <Text key={el.name}>{el.name}</Text>
+                  ))}
+                </ScrollView>
+              </View>
+              {/*
             <View style={{ alignItems: 'flex-end', marginTop: 10 }}>
                 <Text style={{ fontSize: 10 }}>Айлтгалын дүн: {une}₮</Text>
                 <Text style={{ fontSize: 10 }}>Онлайн захиалгын шимтгэл: {price}₮</Text>
@@ -377,41 +409,50 @@ const OrderScreen = ({ navigation }) => {
             </View>
             */}
 
-            <MyInput
-              style={styles.popText}
-              placeholder="Бат"
-              value={hens}
-              onChangeText={setHens}
-              labelName="Хэнээс"
-            />
-            <MyInput
-              style={styles.popText}
-              placeholder="Ам бүл 5"
-              value={hend}
-              onChangeText={setHend}
-              labelName="Хэнд/Ам бүл"
-            />
-            <MyInput
-              style={[styles.popText, { marginBottom: 10 }]}
-              placeholder="Энд утасны дугаар"
-              keyboardType="numeric"
-              value={utas}
-              maxLength={8}
-              onChangeText={setUtas}
-              labelName="Утасны дугаар"
-            />
-            <Text style={{ fontSize: 10, marginBottom: 10, color: "red" }}>
-              {info}
-            </Text>
-            {insertW ? (
-              <Spinning />
-            ) : (
-              <TouchableOpacity style={styles.button} onPress={insertScr}>
-                <Text style={styles.textStyle}>Онлайнаар төлөх</Text>
-              </TouchableOpacity>
-            )}
+              <MyInput
+                style={styles.popText}
+                placeholder="Бат"
+                value={hens}
+                onChangeText={setHens}
+                labelName="Хэнээс"
+              />
+              <MyInput
+                style={styles.popText}
+                placeholder="Ам бүл 5"
+                value={hend}
+                onChangeText={setHend}
+                labelName="Хэнд/Ам бүл"
+              />
+              <MyInput
+                style={[styles.popText, { marginBottom: 10 }]}
+                placeholder="Энд утасны дугаар"
+                keyboardType="numeric"
+                value={utas}
+                maxLength={8}
+                onChangeText={setUtas}
+                labelName="Утасны дугаар"
+              />
+              <MyInput
+                style={[styles.popText, { marginBottom: 10 }]}
+                placeholder="Энд сүсэглэх дүн"
+                keyboardType="numeric"
+                value={suseg}
+                onChangeText={setSuseg}
+                labelName="Сүсэглэх дүн"
+              />
+              <Text style={{ fontSize: 10, marginBottom: 10, color: "red" }}>
+                {info}
+              </Text>
+              {insertW ? (
+                <Spinning />
+              ) : (
+                <TouchableOpacity style={styles.button} onPress={insertScr}>
+                  <Text style={styles.textStyle}>Онлайнаар төлөх</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
   ) : (
@@ -537,11 +578,11 @@ const styles = StyleSheet.create({
   Inputv: {
     flexDirection: "row",
     margin: 15,
-    borderColor: "grey",
-    borderWidth: 1,
+    borderColor: "#999999",
+    borderWidth: 2,
     borderRadius: 15,
     alignItems: "center",
-    padding: 5,
+    padding: 8,
   },
   info: {
     flexDirection: "row",

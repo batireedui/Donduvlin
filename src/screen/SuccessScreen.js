@@ -22,17 +22,47 @@ const SuccessScreen = (props) => {
   const [bank, setBank] = useState([]);
   const [inv_id, setInv_id] = useState(null);
   const [loading, setloading] = useState(false);
+  const [qpay, setQpay] = useState(false);
 
   const [mybank, setMybank] = useState("Хаан банк");
   const [dans, setDans] = useState("5084483969");
-  const [dans_ner, setDans_ner] = useState("НЯМА БУМ ДАР ДОНДҮВ ЧОЙНХОРЛИН ХИЙД");
+  const [dans_ner, setDans_ner] = useState(
+    "НЯМА БУМ ДАР ДОНДҮВ ЧОЙНХОРЛИН ХИЙД",
+  );
   const [iban, setIban] = useState("MN03000500");
   const [info, setInfo] = useState("");
-  
+
   const copyToClipboard = async (val) => {
     await Clipboard.setStringAsync(val.toString());
-    Alert.alert(`"${val}" утга амжилттай хууллаа!`);
+    Alert.alert(`"${val}" утга амжилттай хууллаа !`);
   };
+
+  useEffect(() => {
+    console.log(props.route.params.qpay);
+    let mount = true;
+    if (
+      props.route.params.qpay !== undefined &&
+      props.route.params.qpay !== null
+    ) {
+      if (mount) {
+        setQpay(props.route.params.qpay);
+        setBank(
+          props?.route?.params?.qpay?.qPay_deeplink ??
+            props?.route?.params?.qpay?.urls ??
+            null,
+        );
+        setImage(props?.route?.params?.qpay?.qr_image ?? props?.route?.params?.qpay?.qPay_QRimage ?? null);
+        mount = false;
+      }
+    } else {
+      if (mount) {
+        setInfo(`QPAY мэдээлэл ирээгүй байна!`);
+      }
+    }
+    return () => {
+      mount = false;
+    };
+  }, []);
 
   useEffect(() => {
     let mount = true;
@@ -40,7 +70,7 @@ const SuccessScreen = (props) => {
       .post(serverUrl + "get_bank.php", { token: token })
       .then((res) => {
         if (mount) {
-          console.log(res.data);
+          //console.log(res.data);
           setMybank(res.data.bank);
           setDans(res.data.dans);
           setIban(res.data.iban);
@@ -57,6 +87,7 @@ const SuccessScreen = (props) => {
     };
   }, []);
 
+  /*
   useEffect(() => {
     setloading(true);
     let mount = true;
@@ -133,7 +164,7 @@ const SuccessScreen = (props) => {
       mount = false;
     };
   }, [inv_id]);
-
+*/
   const FirstRoute = () => (
     <ScrollView style={{ flex: 1, marginTop: 5 }}>
       {loading && <Spinning />}
@@ -155,7 +186,7 @@ const SuccessScreen = (props) => {
             key={el.name}
             onPress={() =>
               Linking.openURL(el.link).catch((err) =>
-                Alert.alert(el.description + " аппликэйшн суугаагүй байна.")
+                Alert.alert(el.description + " аппликэйшн суугаагүй байна."),
               )
             }
             style={styles.bankl}
@@ -186,7 +217,14 @@ const SuccessScreen = (props) => {
             style={styles.copyBtn}
             onPress={() => copyToClipboard(`${dans_ner}`)}
           >
-            <Text style={{ color: "#6e3102" }}>Дансны нэр хуулах</Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "RobotoCondensed_600SemiBold",
+              }}
+            >
+              Дансны нэр хуулах
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -198,7 +236,14 @@ const SuccessScreen = (props) => {
             style={styles.copyBtn}
             onPress={() => copyToClipboard(`${iban}`)}
           >
-            <Text style={{ color: "#6e3102" }}>IBAN дугаар хуулах</Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "RobotoCondensed_600SemiBold",
+              }}
+            >
+              IBAN дугаар хуулах
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -210,7 +255,14 @@ const SuccessScreen = (props) => {
             style={styles.copyBtn}
             onPress={() => copyToClipboard(`${dans}`)}
           >
-            <Text style={{ color: "#6e3102" }}>Дансны дугаар хуулах</Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "RobotoCondensed_600SemiBold",
+              }}
+            >
+              Дансны дугаар хуулах
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -222,7 +274,14 @@ const SuccessScreen = (props) => {
             style={styles.copyBtn}
             onPress={() => copyToClipboard(props.route.params.utga)}
           >
-            <Text style={{ color: "#6e3102" }}>Гүйлгээний утга хуулах</Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "RobotoCondensed_600SemiBold",
+              }}
+            >
+              Гүйлгээний утга хуулах
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -273,7 +332,7 @@ const SuccessScreen = (props) => {
               activeColor="#000000"
               inactiveColor="#000000"
               style={{ backgroundColor: "#e8e8e8", color: "#000000" }}
-              indicatorStyle={{ backgroundColor: "#ffb300", height: 3 }}
+              indicatorStyle={{ backgroundColor: "#ca4e18", height: 3 }}
             />
           )}
           navigationState={{ index, routes }}
@@ -313,11 +372,12 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   copyBtn: {
-    backgroundColor: "#ffb300",
+    backgroundColor: "#ca4e18",
     padding: 5,
     borderRadius: 10,
     width: 200,
     alignItems: "center",
+    color: "#fff",
   },
   btext: {
     flexWrap: "wrap",
@@ -339,7 +399,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
-    backgroundColor: "#ffb300",
+    backgroundColor: "#ca4e18",
   },
   stitle: {
     fontFamily: "Nunito_800ExtraBold",

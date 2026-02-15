@@ -42,8 +42,9 @@ const InsertOrderScreen = props => {
                         "zahid": props.route.params.zid
                     })
                     .then(data => {
+                        console.log(data.data);
                         if (data.data.indexOf("okok") > -1) {
-                            props.navigation.navigate("SuccessScreen", { utga: data.data.substring(4, data.data.length), une: props.route.params.une })
+                            //props.navigation.navigate("SuccessScreen", { utga: data.data.substring(4, data.data.length), une: props.route.params.une })
                         }
                         else {
                             setinfo("Дахин оролдоно уу!");

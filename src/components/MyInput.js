@@ -14,8 +14,10 @@ export default function (props) {
 const css = StyleSheet.create({
     inputField: {
         padding: 5,
-        borderBottomColor: "grey",
-        borderBottomWidth: 1
+        borderColor: "#999999",
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
     },
 
 });
