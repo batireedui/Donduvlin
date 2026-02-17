@@ -15,7 +15,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "mn.donduvlin",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -26,12 +29,18 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "mn.donduvlin",
-      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-font", "expo-notifications"],
+    "plugins": [
+      "expo-font",
+      "expo-notifications"
+    ],
     "extra": {
       "eas": {
         "projectId": "e531bba8-6919-417e-a103-2bc50c25fba6"
