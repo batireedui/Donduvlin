@@ -6,7 +6,6 @@ import HomeScreen from './src/screen/HomeScreen';
 import { PhoneValue } from './src/context/PhoneContext';
 import SuccessScreen from './src/screen/SuccessScreen';
 import ContactScreen from './src/screen/ContactScreen';
-import InsertOrderScreen from './src/screen/InsertOrderScreen';
 import HelpScreen from './src/screen/HelpScreen';
 import TodayScreen from './src/screen/TodayScreen';
 import ZasalScreen from './src/screen/ZasalScreen';
@@ -30,7 +29,6 @@ export default function App() {
           <Stack.Screen name="OrderScreen" component={OrderScreen} options={{ title: "Ном айлдуулах" }} />
           <Stack.Screen name="CheckScreen" component={CheckScreen} options={{ title: "Захиалга шалгах" }} />
           <Stack.Screen name="SuccessScreen" component={SuccessScreen} options={{ title: "Захиалга амжилттай" }} />
-          <Stack.Screen name="InsertOrderScreen" component={InsertOrderScreen} options={{ title: "Айлтгалыг бүртгэж байна" }} />
           <Stack.Screen name="ContactScreen" component={ContactScreen} options={{ title: "Холбоо барих" }} />
           <Stack.Screen name="HelpScreen" component={HelpScreen} options={{ title: "Заавар" }} />
           <Stack.Screen name="TodayScreen" component={TodayScreen} options={{ title: "Өнөөдөр" }} />

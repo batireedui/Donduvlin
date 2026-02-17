@@ -33,6 +33,7 @@ const ZasalScreen = ({ navigation }) => {
       .post(serverUrl + "zasalon.php")
       .then((data) => {
         if (mount) {
+          console.log(data.data);
           setOn(data.data[0].starton);
           setThison(data.data[0].thison);
           setTitle(data.data[0].title);
@@ -48,7 +49,7 @@ const ZasalScreen = ({ navigation }) => {
     };
   }, []);
 
-  zasalNavi = () => {
+  const zasalNavi = () => {
     if (huis !== null) {
       navigation.navigate("ZasalinfoScreen", {
         jilner: jilner,
@@ -64,9 +65,13 @@ const ZasalScreen = ({ navigation }) => {
     /*for (let i = parseInt(on) + jil; i <= parseInt(thison); i = i + 12) {
       temp.push(i);
     }*/
+    console.log(on, thison, jil);
+
     let starton = parseInt(on) + ((jil - (parseInt(on) - 1923)) % 12);
+    console.log(starton, thison, jil);
     if (starton < 0) starton += 12;
-    for (let i = starton + jil; i <= parseInt(thison); i = i + 12) {
+
+    for (let i = starton; i <= parseInt(thison); i = i + 12) {
       temp.push(i);
     }
   }
