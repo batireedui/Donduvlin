@@ -236,7 +236,15 @@ const ZasalinfoScreen = (props) => {
       </View>
       <View style={styles.head}>
         <Text style={styles.tg}>Суудал: {suudal}</Text>
-        <RenderHtml contentWidth={width} source={{ html: tailbar }} />
+        <RenderHtml
+          contentWidth={width}
+          tagsStyles={{
+            h4: { fontSize: 15, fontWeight: "bold" },
+            b: { fontWeight: "bold" },
+          }}
+          
+          source={{ html: tailbar }}
+        />
       </View>
       {/*
       <View
@@ -264,9 +272,9 @@ const ZasalinfoScreen = (props) => {
           style={styles.ailduulah}
         >
           {selectbook > 0 ? (
-            <Text>АЙЛДУУЛАХ</Text>
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>ЗАСЛЫН НОМ АЙЛДУУЛАХ</Text>
           ) : (
-            <Text style={{ fontSize: 12 }}>Номоо сонгоно уу</Text>
+            <Text style={{ fontSize: 12, color: "#999" }}>Номоо сонгоно уу</Text>
           )}
         </TouchableOpacity>
       </View>
