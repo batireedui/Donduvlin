@@ -6,6 +6,8 @@ import {
   Modal,
   TouchableOpacity,
   useWindowDimensions,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -242,7 +244,6 @@ const ZasalinfoScreen = (props) => {
             h4: { fontSize: 15, fontWeight: "bold" },
             b: { fontWeight: "bold" },
           }}
-          
           source={{ html: tailbar }}
         />
       </View>
@@ -272,9 +273,13 @@ const ZasalinfoScreen = (props) => {
           style={styles.ailduulah}
         >
           {selectbook > 0 ? (
-            <Text style={{ color: "#fff", fontWeight: "bold" }}>ЗАСЛЫН НОМ АЙЛДУУЛАХ</Text>
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>
+              ЗАСЛЫН НОМ АЙЛДУУЛАХ
+            </Text>
           ) : (
-            <Text style={{ fontSize: 12, color: "#999" }}>Номоо сонгоно уу</Text>
+            <Text style={{ fontSize: 12, color: "#999" }}>
+              Номоо сонгоно уу
+            </Text>
           )}
         </TouchableOpacity>
       </View>
@@ -315,27 +320,33 @@ const ZasalinfoScreen = (props) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TouchableOpacity
-              style={styles.buttonClose}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={{ color: "#000", fontWeight: "bold", padding: 10 }}>
-                X
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity
+                style={styles.buttonClose}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text
+                  style={{ color: "#000", fontWeight: "bold", padding: 10 }}
+                >
+                  X
+                </Text>
+              </TouchableOpacity>
+              <Text style={[styles.modalText, { fontWeight: "bold" }]}>
+                ТАНЫ АЙЛТГАЛУУД
               </Text>
-            </TouchableOpacity>
-            <Text style={[styles.modalText, { fontWeight: "bold" }]}>
-              ТАНЫ АЙЛТГАЛУУД
-            </Text>
-            <View style={{ maxHeight: 100 }}>
-              <ScrollView>
-                {aildNom !== null
-                  ? aildNom.map((el) => <Text key={el.name}>{el.name}</Text>)
-                  : null}
-              </ScrollView>
-            </View>
-            {/*
+              <View style={{ maxHeight: 100 }}>
+                <ScrollView>
+                  {aildNom !== null
+                    ? aildNom.map((el) => <Text key={el.name}>{el.name}</Text>)
+                    : null}
+                </ScrollView>
+              </View>
+              {/*
             <View style={{ alignItems: "flex-end", marginTop: 10 }}>
               <Text style={{ fontSize: 10 }}>Айлтгалын дүн: {une}₮</Text>
               <Text style={{ fontSize: 10 }}>
@@ -345,41 +356,42 @@ const ZasalinfoScreen = (props) => {
                 ТАНЫ ТӨЛӨХ ДҮН: {parseInt(une) + parseInt(price)}₮
               </Text>
             </View>*/}
-            <MyInput
-              style={styles.popText}
-              placeholder="Бат"
-              value={hens}
-              onChangeText={setHens}
-              labelName="Засал хийлгэх хүний нэр"
-            />
-            <MyInput
-              style={styles.popText}
-              value={une}
-              onChangeText={setune}
-              labelName="Сүсэглэх дүн"
-              keyboardType="numeric"
-            />
-            <MyInput
-              style={[styles.popText, { marginBottom: 10 }]}
-              placeholder="Утасны дугаар"
-              keyboardType="numeric"
-              value={utas}
-              maxLength={8}
-              onChangeText={setUtas}
-              labelName="Таны утасны дугаар"
-            />
-            <Text style={{ fontSize: 10, marginBottom: 10, color: "red" }}>
-              {info}
-            </Text>
-            {insertW ? (
-              <Spinning />
-            ) : (
-              <TouchableOpacity style={styles.button} onPress={insertScr}>
-                <Text style={styles.textStyle}>Онлайнаар төлөх</Text>
-              </TouchableOpacity>
-            )}
+              <MyInput
+                style={styles.popText}
+                placeholder="Бат"
+                value={hens}
+                onChangeText={setHens}
+                labelName="Засал хийлгэх хүний нэр"
+              />
+              <MyInput
+                style={styles.popText}
+                value={une}
+                onChangeText={setune}
+                labelName="Сүсэглэх дүн"
+                keyboardType="numeric"
+              />
+              <MyInput
+                style={[styles.popText, { marginBottom: 10 }]}
+                placeholder="Утасны дугаар"
+                keyboardType="numeric"
+                value={utas}
+                maxLength={8}
+                onChangeText={setUtas}
+                labelName="Таны утасны дугаар"
+              />
+              <Text style={{ fontSize: 10, marginBottom: 10, color: "red" }}>
+                {info}
+              </Text>
+              {insertW ? (
+                <Spinning />
+              ) : (
+                <TouchableOpacity style={styles.button} onPress={insertScr}>
+                  <Text style={styles.textStyle}>Онлайнаар төлөх</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </ScrollView>
   ) : (
@@ -420,13 +432,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     elevation: 2,
-    backgroundColor: "#ffb300",
+    backgroundColor: "#b97002",
   },
   buttonClose: {
     alignSelf: "flex-end",
     marginTop: -30,
     marginRight: -30,
-    backgroundColor: "#ffb300",
+    backgroundColor: "#b97002",
     borderRadius: 30,
     height: 30,
     width: 30,
@@ -443,7 +455,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   ailduulah: {
-    backgroundColor: "#ff7b00",
+    backgroundColor: "#b97002",
     paddingHorizontal: 15,
     marginTop: 5,
     alignItems: "center",
@@ -491,10 +503,10 @@ const styles = StyleSheet.create({
   tg: {
     marginTop: 10,
     fontWeight: "bold",
-    color: "#664D03",
+    color: "#b97002",
   },
   tp: {
-    color: "#664D03",
+    color: "#b97002",
   },
   Inputv: {
     flexDirection: "row",
@@ -529,7 +541,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#861f00",
+    backgroundColor: "#b97002",
     borderRadius: 5,
   },
 });
