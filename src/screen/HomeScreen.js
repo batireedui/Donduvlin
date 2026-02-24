@@ -49,7 +49,7 @@ Notifications.setNotificationHandler({
 });
 
 const HomeScreen = ({ navigation }) => {
-  const [phonevalue, setphonevalue] = useState(false);
+  const [phonevalue, setphonevalue] = useState(true);
   const [sphone, setsphone] = useState(null);
   const [day, setday] = useState(null);
   const [info, setinfo] = useState("");
@@ -58,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
 
-  
+
 
   useEffect(() => {
     registerForPushNotificationsAsync()
@@ -114,13 +114,14 @@ const HomeScreen = ({ navigation }) => {
         console.log(err);
       });
 
-    return () => {};
+    return () => { };
   }, [expoPushToken]);
 
   /*notifaction*/
   useEffect(() => {
+    //AsyncStorage.removeItem("@phoneVal");
     getData();
-    return () => {};
+    return () => { };
   }, [phonevalue]);
 
   useEffect(() => {
@@ -131,12 +132,12 @@ const HomeScreen = ({ navigation }) => {
           expotoken: expoPushToken,
           phone: sphone,
         })
-        .then((data) => {})
+        .then((data) => { })
         .catch((err) => {
           console.log(err);
         });
     }
-    return () => {};
+    return () => { };
   }, [phonevalue, expoPushToken]);
 
   const version = "1.0.0";
@@ -189,7 +190,7 @@ const HomeScreen = ({ navigation }) => {
       await AsyncStorage.removeItem("@phoneVal");
       setphonevalue(false);
       setsignOutClick(!signOutClick);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const signOutDrop = () => {
@@ -242,15 +243,20 @@ const HomeScreen = ({ navigation }) => {
         source={require("../../assets/bg.jpg")}
         style={styles.image}
       >
-        <Pressable style={styles.myNumber} onPress={signOutDrop}>
-          <Text style={styles.titleP}>{sphone}</Text>
-          <Feather name="arrow-down-circle" size={20} color="white" />
-        </Pressable>
-        {signOutClick ? (
-          <Pressable style={styles.myNumberD} onPress={removePhone}>
-            <Text style={styles.titleP}>Дугаар солих</Text>
-          </Pressable>
-        ) : null}
+        {sphone === null ? null : (
+          <>
+            <Pressable style={styles.myNumber} onPress={signOutDrop}>
+              <Text style={styles.titleP}>{sphone}</Text>
+              <Feather name="arrow-down-circle" size={20} color="white" />
+            </Pressable>
+
+            {signOutClick && (
+              <Pressable style={styles.myNumberD} onPress={removePhone}>
+                <Text style={styles.titleP}>Дугаар солих</Text>
+              </Pressable>
+            )}
+          </>
+        )}
         <View style={styles.cont}>
           <View>
             <Text style={styles.title}>ДОНДҮВЛИН ХИЙД</Text>

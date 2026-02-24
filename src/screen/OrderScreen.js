@@ -44,7 +44,7 @@ const OrderScreen = ({ navigation }) => {
 
   useEffect(() => {
     getData();
-    return () => {};
+    return () => { };
   }, []);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const OrderScreen = ({ navigation }) => {
       if (value !== null) {
         setUtas(value);
       }
-    } catch (e) {}
+    } catch (e) { }
   };
   useEffect(() => {
     setFirstbooks(false);
@@ -165,62 +165,108 @@ const OrderScreen = ({ navigation }) => {
   let aildNom = books.filter((el) => el.checked.includes("true")); //Сонгосон номын Modal харагдах массив
   let zid = aildNom.map((el) => el.id); //Сонгосон номын ID массив
   let okok = 0;
-  const insertScr = () => {
-    console.log("prs");
-    if (checkNumber(utas)) {
-      setInsertW(true);
-      if (okok == 0) {
-        okok = 1;
-        axios
-          .post(serverUrl + "insertapi.php", {
-            token: token,
-            hens: hens,
-            hend: hend,
-            utas: utas,
-            niitdun: suseg, //parseInt(une) + parseInt(price),
-            zahid: zid,
-          })
-          .then((data) => {
-            console.log(data.data);
-            const response = data.data;
-            console.log(response.zdugaar);
-            if (response.success === true) {
-              okok = 0;
-              setModalVisible(false);
-              navigation.navigate("SuccessScreen", {
-                utga: response.zdugaar,
-                qpay: response.qpay,
-                une: suseg, //parseInt(une) + parseInt(price),
+  const insertScr = async () => {
+    if (checkPhoneNumber(utas)) {
+      console.log("Утасны дугаар зөв байна!");
+      try {
+        await AsyncStorage.setItem("@phoneVal", utas);
+        if (checkNumber(utas)) {
+          console.log("Бүх талбар зөв байна!");
+          setInsertW(true);
+          if (okok == 0) {
+            okok = 1;
+            axios
+              .post(serverUrl + "insertapi.php", {
+                token: token,
+                hens: hens,
+                hend: hend,
+                utas: utas,
+                niitdun: suseg, //parseInt(une) + parseInt(price),
+                zahid: zid,
+              })
+              .then((data) => {
+                //console.log(data.data);
+                const response = data.data;
+                console.log(response.zdugaar);
+                if (response.success === true) {
+                  okok = 0;
+                  setModalVisible(false);
+                  navigation.navigate("SuccessScreen", {
+                    utga: response.zdugaar,
+                    qpay: response.qpay,
+                    une: suseg, //parseInt(une) + parseInt(price),
+                  });
+                } else {
+                  setinfo("Дахин оролдоно уу!");
+                  setInsertW(false);
+                  okok = 0;
+                }
+                /*
+                if (data.data.indexOf("okok") > -1) {
+                  okok = 0;
+                  setModalVisible(false);
+                  navigation.navigate("SuccessScreen", {
+                    utga: data.data.substring(4, data.data.length),
+                    une: suseg, //parseInt(une) + parseInt(price),
+                  });
+                } else {
+                  setinfo("Дахин оролдоно уу!");
+                  setInsertW(false);
+                  okok = 0;
+                }
+                  */
+              })
+              .catch((err) => {
+                console.log(err);
+                okok = 0;
+                setInsertW(false);
+                setinfo("Алдаа гарлаа! Дахин оролдоно уу.");
               });
-            } else {
-              setinfo("Дахин оролдоно уу!");
-              setInsertW(false);
-              okok = 0;
-            }
-            /*
-            if (data.data.indexOf("okok") > -1) {
-              okok = 0;
-              setModalVisible(false);
-              navigation.navigate("SuccessScreen", {
-                utga: data.data.substring(4, data.data.length),
-                une: suseg, //parseInt(une) + parseInt(price),
-              });
-            } else {
-              setinfo("Дахин оролдоно уу!");
-              setInsertW(false);
-              okok = 0;
-            }
-              */
-          })
-          .catch((err) => {
-            console.log(err);
-            okok = 0;
-            setInsertW(false);
-            setinfo("Алдаа гарлаа! Дахин оролдоно уу.");
-          });
-      } else console.log(okok);
+          } else console.log(okok);
+        }
+        else {
+          console.log("Утасны дугаарын талбарыг зөв бөглөнө үү!");
+          setinfo("Утасны дугаарын талбарыг зөв бөглөнө үү!");
+        }
+      } catch (e) {
+        console.log(e);
+        console.log("Утасны дугаар хадгалахад алдаа гарлаа!");
+        setinfo("Дахин оролдоно уу!");
+      }
+    } else {
+      console.log("Утасны дугаараа зөв оруулна уу!");
+      setinfo("Утасны дугаараа оруулан хадгална уу!");
     }
   };
+
+  function checkPhoneNumber(chn) {
+    let chv = true;
+    if (chn === null) {
+      chv = false;
+      setinfo("Утасны дугаараа оруулна уу");
+    } else if (chn.length < 8) {
+      chv = false;
+      setinfo("Утасны дугаараа зөв оруулна уу!");
+    } else if (chn.length === 8) {
+      let newText = "";
+      let numbers = "0123456789";
+      for (var i = 0; i < chn.length; i++) {
+        if (numbers.indexOf(chn[i]) > -1) {
+          newText = newText + chn[i];
+        } else {
+          chv = false;
+          setinfo("Утасны дугаараа зөв оруулна уу!");
+        }
+      }
+      console.log(newText);
+    } else {
+      chv = false;
+      setinfo("Утасны дугаараа зөв оруулна уу!");
+    }
+
+    if (chv) return true;
+    else return false;
+  }
 
   function checkNumber(chn) {
     let chv = true;
@@ -280,7 +326,7 @@ const OrderScreen = ({ navigation }) => {
           style={styles.Input}
           value={findValue}
           onChangeText={setfindValue}
-          //onEndEditing = {search}
+        //onEndEditing = {search}
         />
       </View>
       <View style={styles.rowd}>
@@ -520,6 +566,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     height: 30,
+    width: 120,
+  },
+  container: {
     flex: 1,
     color: "#fff",
   },
