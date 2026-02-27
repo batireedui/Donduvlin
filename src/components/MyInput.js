@@ -18,6 +18,7 @@ const css = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 10,
+        placeholderTextColor: "#515050",
     },
 
 });
