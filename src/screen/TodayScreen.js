@@ -55,12 +55,13 @@ const styles = StyleSheet.create({
     txt: {
         color: '#ca4e18',
         fontFamily: 'Nunito_800ExtraBold',
-        fontSize: 20,
+        fontSize: 24,
         textAlign: 'center'
     },
     txtBody: {
         color: '#252525',
         lineHeight: 20,
+        fontSize: 16,
     },
     txtTitle: {
         color: '#292929',

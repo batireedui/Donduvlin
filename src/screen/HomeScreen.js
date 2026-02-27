@@ -12,6 +12,8 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import axios from "axios";
 import { useFonts } from "expo-font";
 import { Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
@@ -74,6 +76,7 @@ const HomeScreen = ({ navigation }) => {
     const responseListener =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        navigation.navigate("InfoScreen");
       });
 
     return () => {
@@ -139,7 +142,7 @@ const HomeScreen = ({ navigation }) => {
     return () => {};
   }, [phonevalue, expoPushToken]);
 
-  const version = "1.0.0";
+  const version = "1.0.1";
   function checkNumber(chn) {
     let chv = true;
     if (chn === null) {
@@ -266,7 +269,7 @@ const HomeScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("OrderScreen")}
             >
               <View style={styles.circle}>
-                <AntDesign name="read" size={24} color="#fff" />
+                <FontAwesome6 name="book-open-reader" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Ном айлдуулах</Text>
             </Pressable>
@@ -299,10 +302,19 @@ const HomeScreen = ({ navigation }) => {
               <View style={styles.circle}>
                 <AntDesign name="calendar" size={24} color="#fff" />
               </View>
-              <Text style={styles.textStyle}>Өнөөдөр</Text>
+              <Text style={styles.textStyle}>Өдрийн өнгө</Text>
             </Pressable>
           </View>
           <View style={styles.contD}>
+            <Pressable
+              style={styles.mainBtn}
+              onPress={() => navigation.navigate("InfoScreen")}
+            >
+              <View style={styles.circle}>
+                <Entypo name="open-book" size={24} color="#fff" />
+              </View>
+              <Text style={styles.textStyle}>Хурал номын мэдээлэл</Text>
+            </Pressable>
             <Pressable
               style={styles.mainBtn}
               onPress={() => navigation.navigate("HelpScreen")}
@@ -311,15 +323,6 @@ const HomeScreen = ({ navigation }) => {
                 <Feather name="help-circle" size={24} color="#fff" />
               </View>
               <Text style={styles.textStyle}>Заавар</Text>
-            </Pressable>
-            <Pressable
-              style={styles.mainBtn}
-              onPress={() => navigation.navigate("ContactScreen")}
-            >
-              <View style={styles.circle}>
-                <AntDesign name="phone" size={24} color="#fff" />
-              </View>
-              <Text style={styles.textStyle}>Холбоо барих</Text>
             </Pressable>
           </View>
           <Text style={{ fontSize: 10, color: "#5A5A5A" }}>
@@ -494,9 +497,10 @@ const styles = StyleSheet.create({
   textStyle: {
     fontFamily: "RobotoCondensed_500Medium",
     color: "#321111",
+    textAlign: "center",
   },
   circle: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 5,
     width: 50,
     height: 50,
@@ -521,7 +525,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: "center",
     width: 155,
-    height: 105,
+    height: 115,
     borderRadius: 10,
     backgroundColor: "#f7f7f7",
   },

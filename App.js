@@ -12,6 +12,7 @@ import ZasalScreen from './src/screen/ZasalScreen';
 import ZasalinfoScreen from './src/screen/ZasalinfoScreen';
 import EbarimtShowScreen from './src/screen/EbarimtShowScreen';
 import ZasalwebScreen from './src/screen/ZasalwebScreen';
+import InfoScreen from './src/screen/InfoScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="ZasalinfoScreen" component={ZasalinfoScreen} options={{ title: "Суудлын засал" }} />
           <Stack.Screen name="EbarimtShowScreen" component={EbarimtShowScreen} options={{ title: "Ebarimt" }} />
           <Stack.Screen name="ZasalwebScreen" component={ZasalwebScreen} options={{ title: "Суудлын засал" }} />
+          <Stack.Screen name="InfoScreen" component={InfoScreen} options={{ title: "Хурал номын мэдээлэл" }} />
         </Stack.Navigator>
       </PhoneValue>
     </NavigationContainer>
