@@ -32,7 +32,7 @@ export default function App() {
           <Stack.Screen name="SuccessScreen" component={SuccessScreen} options={{ title: "Захиалга амжилттай" }} />
           <Stack.Screen name="ContactScreen" component={ContactScreen} options={{ title: "Холбоо барих" }} />
           <Stack.Screen name="HelpScreen" component={HelpScreen} options={{ title: "Заавар" }} />
-          <Stack.Screen name="TodayScreen" component={TodayScreen} options={{ title: "Өнөөдөр" }} />
+          <Stack.Screen name="TodayScreen" component={TodayScreen} options={{ title: "Өдрийн өнгө" }} />
           <Stack.Screen name="ZasalScreen" component={ZasalScreen} options={{ title: "Суудлын засал" }} />
           <Stack.Screen name="ZasalinfoScreen" component={ZasalinfoScreen} options={{ title: "Суудлын засал" }} />
           <Stack.Screen name="EbarimtShowScreen" component={EbarimtShowScreen} options={{ title: "Ebarimt" }} />

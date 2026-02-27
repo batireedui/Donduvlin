@@ -328,7 +328,7 @@ const HomeScreen = ({ navigation }) => {
               <View style={styles.circle}>
                 <Feather name="help-circle" size={24} color="#fff" />
               </View>
-              <Text style={styles.textStyle}>Заавар</Text>
+              <Text style={styles.textStyle}>Заавар, холбоо барих</Text>
             </Pressable>
           </View>
           <Text style={{ fontSize: 10, color: "#5A5A5A" }}>
